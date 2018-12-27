@@ -4,15 +4,13 @@ def isPrime(x):
         return False
     if x == 2:
         return True
-    prime = True
     for i in range(2, int(math.ceil(x/2))):
         if x % i == 0:
-            prime = False
+            return False
+    return True
 
-    return prime
-
-sum = 0
-for x in range (2, 2000000):
+sum = 2
+for x in range (3, 2000000, 2):
     if isPrime(x):
         sum = sum + x
 
