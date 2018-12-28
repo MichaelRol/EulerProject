@@ -1,20 +1,24 @@
 import math
+
+def isPrime(x):
+    if x < 2 :
+        return False
+    if x == 2:
+        return True
+    for i in range(3,int(x**0.5)+1,2):
+        if x % i == 0:
+            return False
+    return True
+
 n = input("Enter a number: ")
-i = 1
+i = 3
 val = 0
-while i <= n:
+while i <= n and n != 0:
     if n % i == 0:
-        j = 2
-        prime = True
-        while prime and j < int(math.ceil(i/2)):
-            if i % j == 0:
-                prime = False
-                break
-            else:
-                j = j + 1
-        if prime:
+        if isPrime(i):
             val = i
-    i = i + 1
+            n = n / i
+    i = i + 2
 
 print(val)
 

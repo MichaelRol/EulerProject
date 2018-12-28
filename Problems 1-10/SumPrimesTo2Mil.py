@@ -1,10 +1,9 @@
-import math
 def isPrime(x):
     if x < 2 :
         return False
     if x == 2:
         return True
-    for i in range(2, int(math.ceil(x/2))):
+    for i in range(3,int(x**0.5)+1,2):
         if x % i == 0:
             return False
     return True
