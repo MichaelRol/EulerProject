@@ -31,6 +31,5 @@ while(1):
         count = count + 1
     if day == 31 and month == 12 and year == 2000:
         break
-    print(str(day) + "/" + str(month) + "/" + str(year))
 
 print(count)
