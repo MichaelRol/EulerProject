@@ -17,7 +17,6 @@ numbersThatCanBe = np.zeros((28124), dtype=bool)
 for num1 in range(0, len(abu)):
     for num2 in range(num1, len(abu)):
         if abu[num1] + abu[num2] <= 28123:
-            #print(abu[num1] + abu[num2])
             numbersThatCanBe[abu[num1] + abu[num2]] = True
         else:
             break
