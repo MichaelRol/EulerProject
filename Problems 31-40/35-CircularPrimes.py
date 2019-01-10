@@ -3,16 +3,24 @@ def isPrime(x):
         return False
     if x == 2:
         return True
-    for i in range(2,int(x**0.5)+1):
+    for i in range(3,int(x**0.5)+1, 2):
         if x % i == 0:
             return False
     return True
 
+def hasEvenDigit(num):
+    hasEven = False
+    for dig in str(num):
+        if int(dig) % 2 == 0:
+            hasEven = True
+            break
+    return hasEven
+
 count = 4
-for num in range(11, 1000000):
+for num in range(11, 1000000, 2):
     allRotPrime = True
     x = num
-    if isPrime(x):
+    if isPrime(x) and hasEvenDigit(x) == False:
         for rep in range(len(str(x))-1):
             strx = str(x)
             hold = strx[len(strx) - 1]
