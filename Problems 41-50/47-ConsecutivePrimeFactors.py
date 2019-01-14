@@ -11,7 +11,7 @@ def isPrime(x):
     return True
 
 primes = []
-for x in range(0, 100000):
+for x in range(0, 20000):
     if isPrime(x):
         primes.append(x)
 
