@@ -20,7 +20,7 @@ def primeFactorCount(n):
             
     return len(primes)
 
-for x in range(2*3*5*7, 150000):
+for x in range(100000, 150000):
     if primeFactorCount(x) == 4:
         count = 1
         for y in range(1, 4):
