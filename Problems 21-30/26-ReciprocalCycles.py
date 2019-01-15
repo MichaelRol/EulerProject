@@ -1,3 +1,5 @@
+# Solution adapted from https://www.mathblog.dk/project-euler-26-find-the-value-of-d-1000-for-which-1d-contains-the-longest-recurring-cycle/
+
 sequenceLength = 0
 d = 0
 for i in range(1000, 1, -1):
