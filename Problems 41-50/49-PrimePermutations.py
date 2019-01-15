@@ -18,10 +18,10 @@ def arePerms(val, add):
     strval1 = str(val + x)
     strval2 = str(val + 2*x)
 
-    for dig in range(0, len(strval)-1):
+    for dig in range(0, len(strval)):
         if strval[dig] in strval1 and strval[dig] in strval2:
-            strval1 = strval1.replace(strval[dig], '')
-            strval2 = strval2.replace(strval[dig], '')
+            strval1 = strval1.replace(strval[dig], '', 1)
+            strval2 = strval2.replace(strval[dig], '', 1)
         else:
             return False
     if strval1 == '':            
