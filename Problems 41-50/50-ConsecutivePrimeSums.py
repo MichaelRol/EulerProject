@@ -15,14 +15,19 @@ for x in range(3, 1000000, 2):
 
 longestSumLength = 0
 longestSumVal = 0
-for goal in range(0, len(primes) - 1 -1):
+for goal in range(len(primes) -1, 50000, -1):
     for start in range(0, goal):
         sum = 0
+        if goal - start < longestSumLength:
+            break
         for prime in range(start, goal - 1):
             sum = sum + primes[prime]
             if sum == primes[goal] and prime - start > longestSumLength:
                 longestSumLength = prime - start
                 longestSumVal = sum
-
-print(longestSumVal)
+                break
+            if sum > primes[goal]:
+                break
+    print(longestSumVal)
+    print(longestSumLength)
         
