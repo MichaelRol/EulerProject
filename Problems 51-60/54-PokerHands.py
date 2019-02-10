@@ -1,39 +1,56 @@
-cards = ["2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "A"]
-
-def bestHand(hands):
-    if hands[0][1] == hands[1][1] == hands[2][1] == hands[3][1] == hands[4][1]:
-        if "A" + hands[0][1] in hands and "K" + hands[0][1] in hands and "Q" + hands[0][1] in hands and "J" + hands[0][1] in hands and "T" + hands[0][1] in hands:
-            return (9, "A")
-        else:
-            for max in range(12, 4, -1):
-                if cards[max] + hands[0][1] in hands:
-                    if cards[max - 1] + hands[0][1] in hands and cards[max - 2] + hands[0][1] in hands \
-                        and cards[max - 3] + hands[0][1] in hands and cards[max - 4] + hands[0][1] in hands:
-                        return (8, cards[max])
-                    if isThereFour(hands) != -1:
-                        return(7, isThereFour(hands))
-                    return (5, cards[max])
-    if isStraight(hands)[0]:
-        return(4, isStraight(hands)[1])
-    if isThereThree(hands) != -1:
-        return (3, isThereThree(hands))
+def bestHand(hand):
+    if isRoyalFlush(hand):
+        return (9, 14)
+    if isStraightFlush(hand) != -1:
+        return (8, isStraightFlush(hand))
+    if isThereFour(hand) != -1:
+        return (7, isThereFour(hand))
+    if isFullHouse(hand) != -1:
+        return (6, isFullHouse(hand))
+    if isFlush(hand) != -1:
+        return (5, isFlush(hand))
+    if isStraight(hand) != -1:
+        return (4, isStraight(hand))
+    if isThereThree(hand) != -1:
+        return (3, isThereThree(hand))
     if twoPairs:
-        return (2, highestPair(hands))  
-    if highestPair(hands) != -1:
-        return (1, highestPair(hands))
+        return (2, highestPair(hand))  
+    if highestPair(hand) != -1:
+        return (1, highestPair(hand))
     highest = 0
-    for hand in hands:
-        for max in range(12, -1, -1):
-            if cards[max] in hand and max > highest:
-                highest = max
-                break
-    return (0, cards[max])
+    for card in hand:
+        if card[0] > highest:
+            highest = card[0]
+    return (0, highest)
+
+def isFlush(hand):
+    if hand[0][1] == hand[1][1] == hand[2][1] == hand[3][1] == hand[4][1]:
+        for max in range(14, 4, -1):
+            for card in hand:
+                if card[0] == max:
+                    return card[0]
+    return -1
+
+def isStraightFlush(hand):
+    if hand[0][1] == hand[1][1] == hand[2][1] == hand[3][1] == hand[4][1]:
+        for max in range(14, 4, -1):
+            if (max, hand[0][1]) in hand:
+                if (max - 1, hand[0][1]) in hand and (max - 2, hand[0][1]) in hand \
+                        and (max - 3, hand[0][1]) in hand and (max - 4, hand[0][1]) in hand:
+                    return max
+    return -1
+
+def isRoyalFlush(hand):
+    if hand[0][1] == hand[1][1] == hand[2][1] == hand[3][1] == hand[4][1]:
+        if (14, hand[0][1]) in hand and (13, hand[0][1]) in hand and (12, hand[0][1]) in hand and (11, hand[0][1]) in hand and (10, hand[0][1]) in hand:
+            return True
+    return False
 
 def twoPairs(hand):
     count = 0
     for card in hand:
         more = 0
-        for other in hands:
+        for other in hand:
             if card[0] == other[0]:
                 more += 1
                 if more == 2:
@@ -74,34 +91,111 @@ def isThereFour(hand):
                     return card[0]
     return -1
 
+def isFullHouse(hand):
+    if isThereThree(hand) != -1 and isThereFour == -1:
+        threeCard = isThereThree(hand)
+        for card in hand:
+            if threeCard == card[0]:
+                hand.remove(card)
+        if hand[0][0] == hand[1][0]:
+            return threeCard
+    return -1
+
 def isStraight(hand):
     vals = []
     for card in hand:
-        if card[0] == 'A':
-            vals.append(1)
-        elif card[0] == 'T':
-            vals.append(10)
-        elif card[0] == 'J':
-            vals.append(11)
-        elif card[0] == 'Q':
-            vals.append(12)
-        elif card[0] == 'K':
-            vals.append(13)
-        else:
-            vals.append(int(card[0]))
-    if int(max(vals)) - 1 in vals and int(max(vals)) - 2 in vals and int(max(vals)) - 3 in vals and int(max(vals)) - 4 in vals:
-        return (True, max(vals))
-    else:
-        return (False, 0)
+        vals.append(card[0])
+    if max(vals) in vals and (max(vals) - 1) in vals and (max(vals) - 2) in vals and (max(vals) - 3) in vals and (max(vals) - 4) in vals:
+        return max(vals)
+    return -1
+
+def whoHasHighCard(hand1, hand2):
+    highest1 = 0
+    highest2 = 0
+    for card in hand1:
+        if card[0] > highest1:
+            highest1 = card[0]
+    for card in hand2:
+        if card[0] > highest1:
+            highest1 = card[0]
+    if highest1 > highest2:
+        return 1
+    if highest2 > highest1:
+        return 2
+    for card in hand1:
+        if card[0] == highest1:
+            hand1.remove(card)
+    for card in hand2:
+        if card[0] == highest1:
+            hand2.remove(card)
+    highest1 = 0
+    highest2 = 0
+    for card in hand1:
+        if card[0] > highest1:
+            highest1 = card[0]
+    for card in hand2:
+        if card[0] > highest1:
+            highest1 = card[0]
+    if highest1 > highest2:
+        return 1
+    if highest2 > highest1:
+        return 2
+    for card in hand1:
+        if card[0] == highest1:
+            hand1.remove(card)
+    for card in hand2:
+        if card[0] == highest1:
+            hand2.remove(card)
+    highest1 = 0
+    highest2 = 0
+    for card in hand1:
+        if card[0] > highest1:
+            highest1 = card[0]
+    for card in hand2:
+        if card[0] > highest1:
+            highest1 = card[0]
+    if highest1 > highest2:
+        return 1
+    if highest2 > highest1:
+        return 2
+
+        
 
 
 handslist = open("poker.txt", "r")
 player1wins = 0
+count = 0
 for hands in handslist:
     hands = hands.replace("\n", "")
     hands = hands.split(" ")
-    firsthand = hands[0:5]
-    secondhand = hands[5:10]
+    firsthand = []
+    for hand in hands[0:5]:
+        if hand[0] == 'A':
+            firsthand.append((14, hand[1]))
+        elif hand[0] == 'T':
+            firsthand.append((10, hand[1]))
+        elif hand[0] == 'J':
+            firsthand.append((11, hand[1]))
+        elif hand[0] == 'Q':
+            firsthand.append((12, hand[1]))
+        elif hand[0] == 'K':
+            firsthand.append((13, hand[1]))
+        else:
+            firsthand.append((int(hand[0]), hand[1]))
+    secondhand = []
+    for hand in hands[5:10]:
+        if hand[0] == 'A':
+            secondhand.append((14, hand[1]))
+        elif hand[0] == 'T':
+            secondhand.append((10, hand[1]))
+        elif hand[0] == 'J':
+            secondhand.append((11, hand[1]))
+        elif hand[0] == 'Q':
+            secondhand.append((12, hand[1]))
+        elif hand[0] == 'K':
+            secondhand.append((13, hand[1]))
+        else:
+            secondhand.append((int(hand[0]), hand[1]))
     bestHand1 = bestHand(firsthand)
     bestHand2 = bestHand(secondhand)
     if bestHand1[0] > bestHand2[0]:
@@ -109,4 +203,8 @@ for hands in handslist:
     if bestHand1[0] == bestHand2[0]:
         if bestHand1[1] > bestHand2[1]:
             player1wins += 1
+        if bestHand1[1] == bestHand2[1]:
+            print(firsthand, secondhand)
+            if whoHasHighCard(firsthand, secondhand) == 1:
+                player1wins += 1
 print(player1wins)
