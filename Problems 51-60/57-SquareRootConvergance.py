@@ -1,12 +1,15 @@
 count = 0
-newden = 3
+newden = 2
 oldden = 1
+newnom = 3
+oldnom = 1
 for x in range(0, 1000):
-    # number =
-    hold = newden
+    holdden = newden
     newden = newden * 2 + oldden
-    oldden = hold
-    print(newden, oldden)
-    # # denom = 
-    # if len(str(num)) > len(str(den)):
-    #     count += 1
+    oldden = holdden
+    holdnom = newnom
+    newnom = newnom * 2 + oldnom
+    oldnom = holdnom
+    if len(str(newnom)) > len(str(newden)):
+        count += 1
+print(count)
