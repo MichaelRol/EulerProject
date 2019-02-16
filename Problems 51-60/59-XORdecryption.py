@@ -15,8 +15,9 @@ for x in range(97, 123):
                 intmessage.append(int(cipher[byte+2]) ^ z)
             for byte in intmessage:
                 message.append(str(chr(byte)))
-            if ['t', 'h', 'e'] in message:
-                print(''.join(message))
+            text = ''.join(message)
+            if 'Euler' in text:
+                print(sum(intmessage))
 
     
 
