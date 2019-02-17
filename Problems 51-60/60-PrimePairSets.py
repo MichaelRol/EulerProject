@@ -19,20 +19,27 @@ def genPrimes(x):
         num += 2
     return primes
 
-lowest = 1000000000000
-primes = genPrimes(150)
-for one in primes:
-    for two in primes:
-        if one != two and isPrime(int(str(one) + str(two))) and isPrime(int(str(two) + str(one))):
-            for three in primes:
-                if one != three and two != three and isPrime(int(str(one) + str(three))) and isPrime(int(str(two) + str(three)))\
-                    and isPrime(int(str(three) + str(one))) and isPrime(int(str(three) + str(two))):
-                    for four in primes:
-                        if one != four and two != four and three != four and two != three and isPrime(int(str(one) + str(four))) and isPrime(int(str(two) + str(four)))\
-                            and isPrime(int(str(four) + str(one))) and isPrime(int(str(four) + str(two))) and isPrime(int(str(four) + str(three))) and isPrime(int(str(three) + str(four))):
-                            if one + two + three + four < lowest:
-                                lowest = one + two + three + four
-                            # for five in primes:
-                            #     if one != five and two != five and three != five and four != five:
-                            #         count += 1
+lowest = 120000000000000000000000000
+primes = genPrimes(1200)
+onedex = 0
+twodex = 0 
+threedex = 0
+fourdex = 0
+fivedex = 0
+for one in range(0, 1200):
+    for two in range(one + 1, 1200):
+        if isPrime(int(str(primes[one]) + str(primes[two]))) and isPrime(int(str(primes[two]) + str(primes[one]))):
+            for three in range(two + 1, 1200):
+                if isPrime(int(str(primes[one]) + str(primes[three]))) and isPrime(int(str(primes[two]) + str(primes[three])))\
+                    and isPrime(int(str(primes[three]) + str(primes[one]))) and isPrime(int(str(primes[three]) + str(primes[two]))):
+                    for four in range(three + 1, 1200):
+                        if isPrime(int(str(primes[one]) + str(primes[four]))) and isPrime(int(str(primes[two]) + str(primes[four])))\
+                            and isPrime(int(str(primes[four]) + str(primes[one]))) and isPrime(int(str(primes[four]) + str(primes[two]))) and isPrime(int(str(primes[four]) + str(primes[three]))) and isPrime(int(str(primes[three]) + str(primes[four]))):
+                                for five in range(four + 1, 1200):
+                                    if isPrime(int(str(primes[one]) + str(primes[five]))) and isPrime(int(str(primes[two]) + str(primes[five])))\
+                                        and isPrime(int(str(primes[five]) + str(primes[one]))) and isPrime(int(str(primes[five]) + str(primes[two]))) and isPrime(int(str(primes[four]) + str(primes[five])))\
+                                            and isPrime(int(str(primes[five]) + str(primes[three]))) and isPrime(int(str(primes[five]) + str(primes[four]))) and isPrime(int(str(primes[three]) + str(primes[five]))):
+                                        if primes[one] + primes[two] + primes[three] + primes[four] + primes[five] < lowest:
+                                            lowest = primes[one] + primes[two] + primes[three] + primes[four] + primes[five]
+
 print(lowest)
