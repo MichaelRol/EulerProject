@@ -26,13 +26,13 @@ twodex = 0
 threedex = 0
 fourdex = 0
 fivedex = 0
-for one in range(0, 1200):
-    for two in range(one + 1, 1200):
+for one in range(0, 10):
+    for two in range(one + 1, 800):
         if isPrime(int(str(primes[one]) + str(primes[two]))) and isPrime(int(str(primes[two]) + str(primes[one]))):
-            for three in range(two + 1, 1200):
+            for three in range(two + 1, 900):
                 if isPrime(int(str(primes[one]) + str(primes[three]))) and isPrime(int(str(primes[two]) + str(primes[three])))\
                     and isPrime(int(str(primes[three]) + str(primes[one]))) and isPrime(int(str(primes[three]) + str(primes[two]))):
-                    for four in range(three + 1, 1200):
+                    for four in range(three + 1, 1000):
                         if isPrime(int(str(primes[one]) + str(primes[four]))) and isPrime(int(str(primes[two]) + str(primes[four])))\
                             and isPrime(int(str(primes[four]) + str(primes[one]))) and isPrime(int(str(primes[four]) + str(primes[two]))) and isPrime(int(str(primes[four]) + str(primes[three]))) and isPrime(int(str(primes[three]) + str(primes[four]))):
                                 for five in range(four + 1, 1200):
